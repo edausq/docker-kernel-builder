@@ -12,11 +12,11 @@ RUN useradd -m -s /bin/bash kernel-builder
 
 WORKDIR /home/kernel-builder
 
-ENTRYPOINT /bin/bash
-
 COPY build-kernel-rpm /app/
 
 RUN chmod +x /app/build-kernel-rpm
+
+ENTRYPOINT /app/build-kernel-rpm
 
 USER kernel-builder
 
