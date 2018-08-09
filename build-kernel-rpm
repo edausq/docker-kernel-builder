@@ -1,0 +1,35 @@
+#!/bin/bash
+
+version=$KERNEL_VERSION
+
+[[ -z $version ]] && { echo 'error: KERNEL_VERSION env is not set!' >&2; exit 1; }
+
+echo kernel $version is going to be built
+
+source0="https://cdn.kernel.org/pub/linux/kernel/v${version%%.*}.x/linux-${version}.tar.xz"
+
+mkdir wd && cd wd
+
+wget $source0
+
+tar xvf linux-*
+
+cd linux-*/
+
+if [[ -f /in/config ]]; then
+    cat /in/config > .config
+elif [[ -f /in/config.gz ]]; then
+    zcat /in/config.gz > .config
+elif [[ -f /proc/config.gz ]]; then
+    echo taking /proc/config.gz config file
+    zcat /proc/config.gz > .config
+else
+    echo 'no config file found in /in/config, /in/config.gz or /proc/config.gz'
+    exit 1
+fi
+
+make olddefconfig
+
+make rpm-pkg
+
+cp /home/kernel-builder/rpmbuild/RPMS/*/* /out/
