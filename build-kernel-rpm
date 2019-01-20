@@ -1,5 +1,6 @@
 #!/bin/bash
 
+debug_command=$1
 version=$KERNEL_VERSION
 
 [[ -z $version ]] && { echo 'error: KERNEL_VERSION env is not set!' >&2; exit 1; }
@@ -27,6 +28,8 @@ else
     echo 'no config file found in /in/config, /in/config.gz or /proc/config.gz'
     exit 1
 fi
+
+[[ -n $debug_command ]] && exec $debug_command
 
 make olddefconfig
 
