@@ -1,4 +1,4 @@
-FROM centos
+FROM centos:7
 
 RUN yum group install -y "Development Tools" && \
 yum install -y rpm-build rpmdevtools vim wget \
