@@ -6,7 +6,7 @@ redhat-rpm-config asciidoc hmaccalc perl-ExtUtils-Embed \
 pesign xmlto audit-libs-devel binutils-devel \
 elfutils-devel elfutils-libelf-devel java-devel \
 ncurses-devel newt-devel numactl-devel pciutils-devel \
-python-devel zlib-devel bc lzma
+python-devel zlib-devel bc lzma openssl-devel
 
 RUN useradd -m -s /bin/bash kernel-builder
 
